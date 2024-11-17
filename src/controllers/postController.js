@@ -124,16 +124,16 @@ let getFilterPost = async (req, res) => {
 }
 
 let getStatisticalTypePost = async (req, res) => {
-    try {
-        let data = await postService.getStatisticalTypePost(req.query);
-        return res.status(200).json(data)
-    } catch (error) {
-        console.log(error)
-        return res.status(200).json({
-            errCode: -1,
-            errMessage: 'Error from server'
-        })
-    }
+  try {
+    let data = await postService.getStatisticalTypePost(req.query);
+    return res.status(200).json(data)
+  } catch (error) {
+    console.log(error)
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: 'Error from server'
+    })
+  }
 }
 
 let getListNoteByPost = async (req, res) => {

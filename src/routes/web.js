@@ -74,7 +74,7 @@ let initWebRoutes = (app) => {
     router.get('/api/get-all-post-admin', middlewareControllers.verifyTokenUser,postController.getAllPostByAdmin)
     router.get('/api/get-detail-post-by-id', postController.getDetailPostById)
     router.get('/api/get-filter-post', postController.getFilterPost)
-    router.get('/api/get-statistical-post', middlewareControllers.verifyTokenUser,postController.getStatisticalTypePost)
+  router.get('/api/get-statistical-post', middlewareControllers.verifyTokenUser, postController.getStatisticalTypePost)
     router.get('/api/get-note-by-post', middlewareControllers.verifyTokenUser,postController.getListNoteByPost)
     //==================API PACKAGE==========================//
     router.get('/api/get-package-by-type', middlewareControllers.verifyTokenUser,packageController.getPackageByType)
