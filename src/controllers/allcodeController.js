@@ -8,7 +8,7 @@ let handleCreateNewAllCode = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -20,7 +20,7 @@ let getAllCodeService = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -32,7 +32,7 @@ let handleUpdateAllCode = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -44,7 +44,7 @@ let getDetailAllcodeByCode = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -56,7 +56,7 @@ let handleDeleteAllCode = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -68,7 +68,7 @@ let getListAllCodeService = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -81,7 +81,7 @@ let getListJobTypeAndCountPost = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -94,7 +94,7 @@ let handleCreateNewSkill = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -107,7 +107,7 @@ let handleDeleteSkill = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -120,7 +120,7 @@ let getAllSkillByJobCode = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -133,7 +133,7 @@ let getListSkill = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -146,7 +146,7 @@ let handleUpdateSkill = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -158,7 +158,7 @@ let getDetailSkillById = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }

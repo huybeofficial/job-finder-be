@@ -8,7 +8,7 @@ let getAllPackage = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -21,7 +21,7 @@ let getAllToSelect = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -34,7 +34,7 @@ let getPackageById = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -48,7 +48,7 @@ let getPaymentLink = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -61,7 +61,7 @@ let paymentOrderSuccess = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -74,7 +74,7 @@ let setActiveTypePackage = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -87,7 +87,7 @@ let creatNewPackageCv = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -100,7 +100,7 @@ let updatePackageCv = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -113,7 +113,7 @@ let getStatisticalPackageCv = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -126,7 +126,7 @@ let getHistoryTrade = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -139,7 +139,7 @@ let getSumByYear = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }

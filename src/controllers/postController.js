@@ -8,7 +8,7 @@ let handleCreateNewPost = async (req, res) => {
     console.log(error)
     return res.status(200).json({
       errCode: -1,
-      errMessage: 'Error from server'
+      errMessage: 'Lỗi máy chủ'
     })
   }
 }
@@ -20,7 +20,7 @@ let handleReupPost = async (req, res) => {
     console.log(error)
     return res.status(200).json({
       errCode: -1,
-      errMessage: 'Error from server'
+      errMessage: 'Lỗi máy chủ'
     })
   }
 }
@@ -32,7 +32,7 @@ let handleUpdatePost = async (req, res) => {
     console.log(error)
     return res.status(200).json({
       errCode: -1,
-      errMessage: 'Error from server'
+      errMessage: 'Lỗi máy chủ'
     })
   }
 }
@@ -44,7 +44,7 @@ let handleBanPost = async (req, res) => {
     console.log(error)
     return res.status(200).json({
       errCode: -1,
-      errMessage: 'Error from server'
+      errMessage: 'Lỗi máy chủ'
     })
   }
 }
@@ -57,7 +57,7 @@ let handleAcceptPost = async (req, res) => {
     console.log(error)
     return res.status(200).json({
       errCode: -1,
-      errMessage: 'Error from server'
+      errMessage: 'Lỗi máy chủ'
     })
   }
 }
@@ -69,7 +69,7 @@ let getListPostByAdmin = async (req, res) => {
     console.log(error)
     return res.status(200).json({
       errCode: -1,
-      errMessage: 'Error from server'
+      errMessage: 'Lỗi máy chủ'
     })
   }
 }
@@ -82,7 +82,7 @@ let getAllPostByAdmin = async (req, res) => {
     console.log(error)
     return res.status(200).json({
       errCode: -1,
-      errMessage: 'Error from server'
+      errMessage: 'Lỗi máy chủ'
     })
   }
 }
@@ -94,7 +94,7 @@ let getDetailPostById = async (req, res) => {
     console.log(error)
     return res.status(200).json({
       errCode: -1,
-      errMessage: 'Error from server'
+      errMessage: 'Lỗi máy chủ'
     })
   }
 }
@@ -106,7 +106,7 @@ let handleActivePost = async (req, res) => {
     console.log(error)
     return res.status(200).json({
       errCode: -1,
-      errMessage: 'Error from server'
+      errMessage: 'Lỗi máy chủ'
     })
   }
 }
@@ -118,7 +118,7 @@ let getFilterPost = async (req, res) => {
     console.log(error)
     return res.status(200).json({
       errCode: -1,
-      errMessage: 'Error from server'
+      errMessage: 'Lỗi máy chủ'
     })
   }
 }
@@ -131,7 +131,7 @@ let getStatisticalTypePost = async (req, res) => {
     console.log(error)
     return res.status(200).json({
       errCode: -1,
-      errMessage: 'Error from server'
+      errMessage: 'Lỗi máy chủ'
     })
   }
 }
@@ -144,7 +144,7 @@ let getListNoteByPost = async (req, res) => {
     console.log(error)
     return res.status(200).json({
       errCode: -1,
-      errMessage: 'Error from server'
+      errMessage: 'Lỗi máy chủ'
     })
   }
 }

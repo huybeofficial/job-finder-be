@@ -8,7 +8,7 @@ let handleCreateNewCompany = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -20,7 +20,7 @@ let handleUpdateCompany = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -32,7 +32,7 @@ let handleBanCompany = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -44,7 +44,7 @@ let handleUnBanCompany = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -56,7 +56,7 @@ let handleAddUserCompany = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -68,7 +68,7 @@ let getListCompany = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -80,7 +80,7 @@ let getDetailCompanyById = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -92,7 +92,7 @@ let getDetailCompanyByUserId = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -104,7 +104,7 @@ let getAllUserByCompanyId = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -116,7 +116,7 @@ let handleQuitCompany = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -129,7 +129,7 @@ let getAllCompanyByAdmin = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }
@@ -142,7 +142,7 @@ let handleAccecptCompany = async (req, res) => {
         console.log(error)
         return res.status(200).json({
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         })
     }
 }

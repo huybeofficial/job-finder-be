@@ -437,7 +437,7 @@ let forgotPassword = async (data) => {
         console.error('Error in forgotPassword:', error);
         return {
             errCode: -1,
-            errMessage: 'Error from server'
+            errMessage: 'Lỗi máy chủ'
         };
     }
 };
