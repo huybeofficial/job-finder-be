@@ -8,21 +8,20 @@ let encodeToken = (userId) =>{
         iss: 'Huy Tran',
         sub: userId,
         iat: new Date().getTime(),
-        exp: new Date().setDate(new Date().getDate() +3)
     },process.env.JWT_SECRET
 )
 }
 
-    let pdfToString = async(file) => {
-        file = new Buffer.from(file, 'base64').toString('binary');
-        let buffer = new Buffer.from(file.split(",")[1], 'base64');
-        const options = {}
-        let pdfData = null
-        await pdfExtract.extractBuffer(buffer, options)
+let pdfToString = async (file) => {
+    file = new Buffer.from(file, 'base64').toString('binary');
+    let buffer = new Buffer.from(file.split(",")[1], 'base64');
+    const options = {}
+    let pdfData = null
+    await pdfExtract.extractBuffer(buffer, options)
         .then(data => pdfData = data)
-        .catch(err=> console.log(err));
-        return pdfData
-    }
+        .catch(err => console.log(err));
+    return pdfData
+}
 let getAllKeyWords = (text) => {
     let options = {
         language: "english",
