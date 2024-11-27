@@ -2,26 +2,22 @@ import db from "../models/index";
 import CommonUtils from '../utils/CommonUtils';
 const { Op, and } = require("sequelize");
 
-let calculateMatchCv = async (file, mapRequired) => {
-  let myMapRequired = new Map(mapRequired)
-  if (myMapRequired.size === 0) {
-    return 0
-  }
-  let match = 0
-  let cvData = await CommonUtils.pdfToString(file)
-  cvData = cvData.pages
-  cvData.forEach(item => {
-    item.content.forEach(data => {
-      for (let key of myMapRequired.keys()) {
-        if (CommonUtils.flatAllString(data.str).includes(CommonUtils.flatAllString(myMapRequired.get(key)))) {
-          myMapRequired.delete(key)
-          match++
+const calculateMatchCv = async (file, mapRequired) => {
+    if (!mapRequired.size) return 0;
+
+    const cvData = await CommonUtils.pdfToString(file);
+    let cvContent = cvData.pages.map(page => page.content.map(data => CommonUtils.flatAllString(data.str)).join(" ")).join(" ");
+
+    let matchCount = 0;
+    for (let [key, skill] of mapRequired.entries()) {
+        if (cvContent.includes(CommonUtils.flatAllString(skill))) {
+            matchCount++;
+            mapRequired.delete(key); // Xóa để tránh lặp lại
         }
-      }
-    })
-  })
-  return match
-}
+    }
+    return matchCount;
+};
+
 
 let caculateMatchUserWithFilter = async (userData, listSkillRequired) => {
   let match = 0
