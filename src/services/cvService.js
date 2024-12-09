@@ -140,7 +140,8 @@ let getAllListCvByPost = (data) => {
               getMapRequiredSkill(mapRequired, postInfo)
               for (let i = 0; i < cv.rows.length; i++) {
                 let match = await calculateMatchCv(cv.rows[i].file, mapRequired)
-                cv.rows[i].file = Math.round((match / mapRequired.size + Number.EPSILON) * 100 || 0) + '%'
+                // cv.rows[i].file = Math.round((match / mapRequired.size + Number.EPSILON) * 100 || 0) + '%'
+                cv.rows[i].file = mapRequired.size === 0 ? '100%' : Math.round((match / mapRequired.size + Number.EPSILON) * 100 || 0) + '%' // Nếu không có kỹ năng yêu cầu thì mặc định là 100%
               }
               resolve({
                 errCode: 0,
