@@ -54,8 +54,6 @@ let checkUserPhone = (userPhone) => {
                 let account = await db.Account.findOne({
                     where: { phonenumber: userPhone }
                 })
-
-                console.log("accountaccount",account);
                 if (account) {
                     resolve(true)
                 } else {
@@ -552,20 +550,29 @@ let getDetailUserById = (userid) => {
                     raw: true,
                     nest: true
                 })
-                if (res.userAccountData.userSettingData.file) {
-                    res.userAccountData.userSettingData.file = new Buffer.from(res.userAccountData.userSettingData.file, 'base64').toString('binary');
+                if (!res) {
+                    resolve({
+                        errCode: -1,
+                        errMessage: "Không tìm thấy người dùng phù hợp"
+                    })
+                    // Xử lý trường hợp không tìm thấy tài khoản phù hợp
                 }
-                let listSkills = await db.UserSkill.findAll({
-                    where: { userId: res.userAccountData.id },
-                    include: db.Skill,
-                    raw: true,
-                    nest: true
-                })
-                res.listSkills = listSkills
-                resolve({
-                    errCode: 0,
-                    data: res,
-                })
+                else {
+                    if (res.userAccountData.userSettingData.file) {
+                        res.userAccountData.userSettingData.file = new Buffer.from(res.userAccountData.userSettingData.file, 'base64').toString('binary');
+                    }
+                    let listSkills = await db.UserSkill.findAll({
+                        where: { userId: res.userAccountData.id },
+                        include: db.Skill,
+                        raw: true,
+                        nest: true
+                    })
+                    res.listSkills = listSkills
+                    resolve({
+                        errCode: 0,
+                        data: res,
+                    })
+                }
             }
         } catch (error) {
             reject(error.message)

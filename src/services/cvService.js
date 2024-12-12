@@ -20,31 +20,31 @@ const calculateMatchCv = async (file, mapRequired) => {
 
 
 let caculateMatchUserWithFilter = async (userData, listSkillRequired) => {
-  let match = 0
-  let myListSkillRequired = new Map()
-  listSkillRequired.forEach(item => { myListSkillRequired.set(item.id, item.name) })
-  let userskill = await db.UserSkill.findAll({
-    where: { userId: userData.userId },
-  })
-  for (let key of myListSkillRequired.keys()) {
-    let temp = [...userskill]
-    temp.forEach((item, index) => {
-      if (item.SkillId === key) {
-        userskill.splice(index, 1)
-        match++
-      }
+    let match = 0
+    let myListSkillRequired = new Map()
+    listSkillRequired.forEach(item => { myListSkillRequired.set(item.id, item.name) })
+    let userskill = await db.UserSkill.findAll({
+        where: { userId: userData.userId },
     })
-  }
-  let matchFromCV = await calculateMatchCv(userData.file, myListSkillRequired)
-  return match + matchFromCV
+    for (let key of myListSkillRequired.keys()) {
+        let temp = [...userskill]
+        temp.forEach((item, index) => {
+            if (item.SkillId === key) {
+                userskill.splice(index, 1)
+                match++
+            }
+        })
+    }
+    let matchFromCV = await calculateMatchCv(userData.file, myListSkillRequired)
+    return match + matchFromCV
 }
 
 let getMapRequiredSkill = (mapRequired, post) => {
-  for (let key of mapRequired.keys()) {
-    if (!CommonUtils.flatAllString(post.postDetailData.descriptionHTML).includes(CommonUtils.flatAllString(mapRequired.get(key).toLowerCase()))) {
-      mapRequired.delete(key)
+    for (let key of mapRequired.keys()) {
+        if (!CommonUtils.flatAllString(post.postDetailData.descriptionHTML).includes(CommonUtils.flatAllString(mapRequired.get(key).toLowerCase()))) {
+            mapRequired.delete(key)
+        }
     }
-  }
 }
 
 let handleCreateCv = (data) => {
@@ -130,24 +130,24 @@ let getAllListCvByPost = (data) => {
                     raw: true,
                     nest: true
                 })
-              let listSkills = await db.Skill.findAll({
-                where: { categoryJobCode: postInfo.postDetailData.jobTypePostData.code }
-              })
-              let mapRequired = new Map()
-              listSkills = listSkills.map(item => {
-                mapRequired.set(item.id, item.name)
-              })
-              getMapRequiredSkill(mapRequired, postInfo)
-              for (let i = 0; i < cv.rows.length; i++) {
-                let match = await calculateMatchCv(cv.rows[i].file, mapRequired)
-                // cv.rows[i].file = Math.round((match / mapRequired.size + Number.EPSILON) * 100 || 0) + '%'
-                cv.rows[i].file = mapRequired.size === 0 ? '100%' : Math.round((match / mapRequired.size + Number.EPSILON) * 100 || 0) + '%' // Nếu không có kỹ năng yêu cầu thì mặc định là 100%
-              }
-              resolve({
-                errCode: 0,
-                data: cv.rows,
-                count: cv.count,
-              })
+                let listSkills = await db.Skill.findAll({
+                    where: { categoryJobCode: postInfo.postDetailData.jobTypePostData.code }
+                })
+                let mapRequired = new Map()
+                listSkills = listSkills.map(item => {
+                    mapRequired.set(item.id, item.name)
+                })
+                getMapRequiredSkill(mapRequired, postInfo)
+                for (let i = 0; i < cv.rows.length; i++) {
+                    let match = await calculateMatchCv(cv.rows[i].file, mapRequired)
+                    // cv.rows[i].file = Math.round((match / mapRequired.size + Number.EPSILON) * 100 || 0) + '%'
+                    cv.rows[i].file = mapRequired.size === 0 ? '100%' : Math.round((match / mapRequired.size + Number.EPSILON) * 100 || 0) + '%' // Nếu không có kỹ năng yêu cầu thì mặc định là 100%
+                }
+                resolve({
+                    errCode: 0,
+                    data: cv.rows,
+                    count: cv.count,
+                })
             }
         } catch (error) {
             reject(error)
@@ -378,6 +378,7 @@ let fillterCVBySelection = (data) => {
                     ],
                     limit: +data.limit,
                     offset: +data.offset,
+                    order: [['id', 'DESC']],
                     raw: true,
                     nest: true
                 }
@@ -409,51 +410,51 @@ let fillterCVBySelection = (data) => {
                         }
                     })
                 }
-              let lengthSkill = 0
-              let lengthOtherSkill = 0
-              if (data.listSkills) {
-                data.listSkills = data.listSkills.split(',')
-                lengthSkill = data.listSkills.length
-                listSkillRequired = await db.Skill.findAll({
-                  where: { id: data.listSkills },
-                  attributes: ['id', 'name']
-                })
+                let lengthSkill = 0
+                let lengthOtherSkill = 0
+                if (data.listSkills) {
+                    data.listSkills = data.listSkills.split(',')
+                    lengthSkill = data.listSkills.length
+                    listSkillRequired = await db.Skill.findAll({
+                        where: { id: data.listSkills },
+                        attributes: ['id', 'name']
+                    })
 
-              }
-              if (data.otherSkills) {
-                data.otherSkills = data.otherSkills.split(',')
-                lengthOtherSkill = data.otherSkills.length
-                data.otherSkills.forEach(item => {
-                  listSkillRequired.push({
-                    id: item,
-                    name: item,
-                  })
-                })
-              }
-              if (listSkillRequired.length > 0 || bonus > 0) {
-                for (let i = 0; i < listUserSetting.rows.length; i++) {
-                  let match = await caculateMatchUserWithFilter(listUserSetting.rows[i], listSkillRequired)
-                  if (bonus > 0) {
-                    listUserSetting.rows[i].file = Math.round(((match + listUserSetting.rows[i].bonus) / (lengthSkill * 2 + bonus + lengthOtherSkill) + Number.EPSILON) * 100) + "%"
-                  }
-                  else {
-                    listUserSetting.rows[i].file = Math.round((match / (lengthSkill * 2 + lengthOtherSkill) + Number.EPSILON) * 100) + "%"
-                  }
                 }
-              }
-              else {
-                isHiddenPercent = true
-                listUserSetting.rows = listUserSetting.rows.map(item => {
-                  delete item.file
-                  return item
+                if (data.otherSkills) {
+                    data.otherSkills = data.otherSkills.split(',')
+                    lengthOtherSkill = data.otherSkills.length
+                    data.otherSkills.forEach(item => {
+                        listSkillRequired.push({
+                            id: item,
+                            name: item,
+                        })
+                    })
+                }
+                if (listSkillRequired.length > 0 || bonus > 0) {
+                    for (let i = 0; i < listUserSetting.rows.length; i++) {
+                        let match = await caculateMatchUserWithFilter(listUserSetting.rows[i], listSkillRequired)
+                        if (bonus > 0) {
+                            listUserSetting.rows[i].file = Math.round(((match + listUserSetting.rows[i].bonus) / (lengthSkill * 2 + bonus + lengthOtherSkill) + Number.EPSILON) * 100) + "%"
+                        }
+                        else {
+                            listUserSetting.rows[i].file = Math.round((match / (lengthSkill * 2 + lengthOtherSkill) + Number.EPSILON) * 100) + "%"
+                        }
+                    }
+                }
+                else {
+                    isHiddenPercent = true
+                    listUserSetting.rows = listUserSetting.rows.map(item => {
+                        delete item.file
+                        return item
+                    })
+                }
+                resolve({
+                    errCode: 0,
+                    data: listUserSetting.rows,
+                    count: listUserSetting.count,
+                    isHiddenPercent: isHiddenPercent
                 })
-              }
-              resolve({
-                errCode: 0,
-                data: listUserSetting.rows,
-                count: listUserSetting.count,
-                isHiddenPercent: isHiddenPercent
-              })
 
             }
         } catch (error) {
@@ -482,14 +483,14 @@ let checkSeeCandiate = (data) => {
                     company = await db.Company.findOne({
                         where: { id: user.companyId },
                         attributes: ['id', 'allowCV', 'allowCvFree'],
-                        raw: false
+                        raw: true
                     })
                 }
                 else {
                     company = await db.Company.findOne({
                         where: { id: data.companyId },
                         attributes: ['id', 'allowCV', 'allowCvFree'],
-                        raw: false
+                        raw: true
                     })
                 }
                 if (!company) {
@@ -501,7 +502,10 @@ let checkSeeCandiate = (data) => {
                 else {
                     if (company.allowCvFree > 0) {
                         company.allowCvFree -= 1
-                        await company.save()
+                        await db.Company.update(
+                            { allowCvFree: company.allowCvFree },
+                            { where: { id: company.id } }
+                        );
                         resolve({
                             errCode: 0,
                             errMessage: "Ok"
@@ -509,7 +513,10 @@ let checkSeeCandiate = (data) => {
                     }
                     else if (company.allowCV > 0) {
                         company.allowCV -= 1
-                        await company.save()
+                        await db.Company.update(
+                            { allowCv: company.allowCv },
+                            { where: { id: company.id } }
+                        );
                         resolve({
                             errCode: 0,
                             errMessage: "Ok"

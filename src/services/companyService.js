@@ -454,6 +454,7 @@ let getListCompany = (data) => {
                 })
             } else {
                 let objectFilter = {
+                    order: [['createdAt', 'DESC']],
                     offset: +data.offset,
                     limit: +data.limit,
                     where: { statusCode: 'S1' }
