@@ -4,7 +4,7 @@ import db from "../models/index";
 import { uploadImage } from "../utils/cloudinary";
 require('dotenv').config();
 var nodemailer = require('nodemailer');
-let sendmail = (note, userMail, link = null) => {
+let sendmail = (note, userMail, link = null, title) => {
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -16,7 +16,7 @@ let sendmail = (note, userMail, link = null) => {
     var mailOptions = {
         from: process.env.EMAIL_APP,
         to: userMail,
-        subject: 'Thông báo từ trang Vào Việc',
+        subject: title || 'Thông báo từ trang Vào Việc',
         html: note
     };
     if (link) {
@@ -353,10 +353,10 @@ let handleAccecptCompany = (data) => {
                         }
                     })
                     if (data.note != 'null') {
-                        sendmail(`Công ty bạn đã bị từ chối vì: ${note}`, user.email, "admin/edit-company")
+                        sendmail(`Công ty bạn đã bị từ chối vì: ${note}`, user.email, "admin/edit-company", title= "TỪ CHỐI DUYỆT CÔNG TY")
                     }
                     else {
-                        sendmail(`Công ty của bạn đã được kiểm duyệt thành công`, user.email, `detail-company/${foundCompany.id}`)
+                        sendmail(`Công ty của bạn đã được kiểm duyệt thành công`, user.email, `detail-company/${foundCompany.id}`, title = "CÔNG TY ĐÃ ĐƯỢC DUYỆT")
                     }
                     resolve({
                         errCode: 0,

@@ -2,7 +2,7 @@ import db from "../models/index";
 const { Op } = require("sequelize");
 require('dotenv').config();
 var nodemailer = require('nodemailer');
-let sendmail = (note, userMail, link = null) => {
+let sendmail = (note, userMail, link = null, title) => {
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -14,7 +14,7 @@ let sendmail = (note, userMail, link = null) => {
   var mailOptions = {
     from: process.env.EMAIL_APP,
     to: userMail,
-    subject: 'Thông báo từ trang Vào Việc',
+    subject: title || 'Thông báo từ trang Vào Việc',
     html: note
   };
   if (link) {
@@ -314,7 +314,7 @@ let handleBanPost = (data) => {
               exclude: ['userId']
             }
           })
-          sendmail(`Bài viết #${foundPost.id} của bạn đã bị chặn vì ${data.note}`, user.email, `admin/list-post/${foundPost.id}`)
+          sendmail(`Bài viết #${foundPost.id} của bạn đã bị chặn vì ${data.note}`, user.email, `admin/list-post/${foundPost.id}`, "Bài viết của bạn đã bị chặn")
 
           resolve({
             errCode: 0,
@@ -362,7 +362,7 @@ let handleActivePost = (data) => {
               exclude: ['userId']
             }
           })
-          sendmail(`Bài viết #${foundPost.id} của bạn đã được mở lại vì: ${data.note}`, user.email, `admin/list-post/${foundPost.id}`)
+          sendmail(`Bài viết #${foundPost.id} của bạn đã được mở lại vì: ${data.note}`, user.email, `admin/list-post/${foundPost.id}`, "Mở lại bài viết của bạn")
           resolve({
             errCode: 0,
             errMessage: 'Đã mở lại trạng thái chờ duyệt'
@@ -417,7 +417,7 @@ let handleAcceptPost = (data) => {
             sendmail(note, user.email, `detail-job/${foundPost.id}`)
           }
           else {
-            sendmail(`Bài viết #${foundPost.id} của bạn đã bị từ chối`, user.email, `admin/list-post/${foundPost.id}`)
+            sendmail(`Bài viết #${foundPost.id} của bạn đã bị từ chối`, user.email, `admin/list-post/${foundPost.id}`, "Từ chối duyệt bài viết")
           }
           resolve({
             errCode: 0,

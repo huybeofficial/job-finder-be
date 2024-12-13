@@ -6,7 +6,7 @@ const { uploadImage } = require('../utils/cloudinary');
 const salt = bcrypt.genSaltSync(10);
 require('dotenv').config();
 let nodemailer = require('nodemailer');
-let sendmail = (note, userMail, link = null) => {
+let sendmail = (note, userMail, link = null, title) => {
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -18,7 +18,7 @@ let sendmail = (note, userMail, link = null) => {
     let mailOptions = {
         from: process.env.EMAIL_APP,
         to: userMail,
-        subject: 'Thông báo từ trang Vào Việc',
+        subject: title || 'Thông báo từ trang Vào Việc',
         html: note
     };
     if (link) {
@@ -55,7 +55,7 @@ let checkUserPhone = (userPhone) => {
                     where: { phonenumber: userPhone }
                 })
 
-                console.log("accountaccount",account);
+                console.log("accountaccount", account);
                 if (account) {
                     resolve(true)
                 } else {
@@ -126,11 +126,11 @@ let handleCreateNewUser = (data) => {
                         })
                     }
                     if (!isHavePass) {
-                        let note = `<h3>Tài khoản đã tạo thành công</h3>
+                        let note = `<h3>Tài khoản đã tạo thành công, bạn có thể đăng nhập bất kỳ lúc nào</h3>
                                     <p>Tài khoản: ${data.phonenumber}</p>
                                     <p>Mật khẩu: ${data.password}</p>
                         `
-                        sendmail(note, data.email)
+                        sendmail(note, data.email, null, title = "Tạo tài khoản Vào Việc thành công")
                     }
                     resolve({
                         errCode: 0,
@@ -416,7 +416,7 @@ let forgotPassword = async (data) => {
                                     <p>Tài khoản: ${data.phonenumber}</p>
                                     <p>Mật khẩu mới: ${newPassword}</p>
                         `;
-                sendmail(note, user.email, 'login');
+                sendmail(note, user.email, 'login', "Yêu cầu cấp lại mật khẩu trang Vào Việc");
                 return {
                     errCode: 0,
                     errMessage: 'Mật khẩu mới đã được gửi vào email của bạn'
